@@ -234,10 +234,11 @@ export default function CarouselCanvas({
     // Scene তৈরি: সব 3D objects এর container
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-
+    const isMobile = window.innerWidth <= 768; // breakpoint
+    const fov = !isMobile ? 80 : 120;
     // Camera তৈরি: দৃশ্য দেখার perspective
     const camera = new THREE.PerspectiveCamera(
-      70, // FOV (Field of View)
+      fov,
       window.innerWidth / window.innerHeight, // Aspect ratio
       0.01, // Near clipping plane
       20, // Far clipping plane
@@ -371,7 +372,7 @@ export default function CarouselCanvas({
   return (
     <canvas
       ref={canvasRef}
-      className="absolute md:top-14 top-10 inset-0 z-10 webgl"
+      className="absolute md:top-14 top-0 inset-0 z-10 webgl"
     />
   );
 }

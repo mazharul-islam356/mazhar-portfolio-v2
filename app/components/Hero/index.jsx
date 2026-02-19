@@ -33,7 +33,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="w-full h-[90vh] overflow-hidden relative">
+    <div className="w-full md:h-[90vh] h-[85vh] overflow-hidden relative">
       {/* Loading Screen */}
       {isLoading && <Loader progress={loadProgress} />}
 
@@ -43,7 +43,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Title */}
-      <div className="absolute md:top-36 top-40 w-full text-center md:z-30 z-10">
+      <div className="absolute md:top-36 top-52 w-full text-center md:z-30 z-10">
         <h2 className="borel md:text-base text-sm text-white">Hello There —</h2>
         <h2 className="text-white xl:text-4xl lg:text-3xl md:text-2xl text-xl font-bold tracking-wide bruno">
           You&apos;ve Entered a Creative Dimension
@@ -66,7 +66,7 @@ export default function Hero() {
       />
 
       {/* Bottom Text */}
-      <div className="absolute md:bottom-10 bottom-20 w-full text-center md:z-30 z-10">
+      <div className="absolute md:bottom-10 bottom-32 w-full text-center md:z-30 z-10">
         <h2 className="text-white md:text-3xl text-2xl opacity-90 dm-serif">
           Introducing myself — I am{" "}
           <span className="autowide md:text-lg text-base">Mazharul Islam</span>

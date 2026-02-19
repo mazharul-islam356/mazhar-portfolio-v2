@@ -15,14 +15,14 @@ export const IMAGE_PATHS = [
 
 // মোবাইল ডিভাইসের জন্য সেটিংস
 export const MOBILE_CONFIG = {
-  numVisible: 4, // স্ক্রিনে কতগুলো ইমেজ দেখাবে
-  radius: 2.2, // ক্যারোসেলের ব্যাসার্ধ (ছোট = বেশি কেন্দ্রীভূত)
+  numVisible: 4.5, // স্ক্রিনে কতগুলো ইমেজ দেখাবে
+  radius: 3, // ক্যারোসেলের ব্যাসার্ধ (ছোট = বেশি কেন্দ্রীভূত)
   arcSpread: 0.8 * Math.PI, // ইমেজগুলোর বিস্তার কতটুকু হবে
-  planeWidth: 1.6, // প্রতিটি ইমেজের প্রস্থ
-  planeHeight: 0.95, // প্রতিটি ইমেজের উচ্চতা
-  widthSegments: 16, // কার্ভের স্মুথনেস (বেশি = ভালো কোয়ালিটি)
-  pixelRatio: 2, // পিক্সেল রেশিও (বেশি = ভালো কোয়ালিটি)
-  cameraZ: 4.5, // ক্যামেরার দূরত্ব
+  planeWidth: 2, // প্রতিটি ইমেজের প্রস্থ
+  planeHeight: 1.2, // প্রতিটি ইমেজের উচ্চতা
+  widthSegments: 23, // কার্ভের স্মুথনেস (বেশি = ভালো কোয়ালিটি)
+  pixelRatio: 5, // পিক্সেল রেশিও (বেশি = ভালো কোয়ালিটি)
+  cameraZ: 4, // ক্যামেরার দূরত্ব
 };
 
 // ডেস্কটপের জন্য সেটিংস
@@ -32,8 +32,8 @@ export const DESKTOP_CONFIG = {
   arcSpread: 1.4 * Math.PI,
   planeWidth: 2.5,
   planeHeight: 1.55,
-  widthSegments: 20,
-  pixelRatio: 2,
+  widthSegments: 30,
+  pixelRatio: 5,
   cameraZ: 5.5,
 };
 
