@@ -28,9 +28,9 @@ export const MOBILE_CONFIG = {
 // ডেস্কটপের জন্য সেটিংস
 export const DESKTOP_CONFIG = {
   numVisible: 8,
-  radius: 4.6,
+  radius: 4.5,
   arcSpread: 1.4 * Math.PI,
-  planeWidth: 2.5,
+  planeWidth: 2.6,
   planeHeight: 1.55,
   widthSegments: 30,
   pixelRatio: 5,

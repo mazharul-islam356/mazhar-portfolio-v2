@@ -1,9 +1,12 @@
+"use client";
+import TeamCarousel from "./team-carusol";
+
 const teamMembers = [
   {
     id: "1",
     name: "GadgetCheap",
     role: "Founder",
-    image: "/gadcheap-p.jpg",
+    image: "/gadcheap-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://gad-style-website-five.vercel.app",
   },
@@ -11,7 +14,7 @@ const teamMembers = [
     id: "2",
     name: "MKS Outfit",
     role: "Founder",
-    image: "/mks.jpg",
+    image: "/mks.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://mksoutfit.vercel.app",
   },
@@ -27,7 +30,7 @@ const teamMembers = [
     id: "4",
     name: "Taiba Mart",
     role: "Founder",
-    image: "/taiba-p.jpg",
+    image: "/taiba-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://www.taibamart.com",
   },
@@ -35,7 +38,7 @@ const teamMembers = [
     id: "5",
     name: "Zunayed Saki (Portfolio)",
     role: "Founder",
-    image: "/zunayeksaki-p.jpg",
+    image: "/zunayeksaki-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://zunayedsaki.vercel.app",
   },
@@ -43,7 +46,7 @@ const teamMembers = [
     id: "6",
     name: "Voter Kotha",
     role: "Founder",
-    image: "/voter-kotha-p.jpg",
+    image: "/voter-kotha-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://voterkotha.online",
   },
@@ -51,20 +54,28 @@ const teamMembers = [
     id: "7",
     name: "Gadget Bodda",
     role: "Founder",
-    image: "/gadgetboadda-p.jpg",
+    image: "/gadgetboadda-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://www.gadgetboddaa.com",
   },
 ];
 
-const ProjectsSection = () => {
+const Project = () => {
   return (
-    <section className="bg-transparent text-white md:pb-20 pb-5 px-4">
+    <section className="bg-transparent text-white md:pt-10 pb-5 px-4">
       {/* <h1 className="text-white text-4xl">My Showcase</h1> */}
+
+      {/* Background decorations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-50 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform translate-x-1/2 z-0 -translate-y-1/2" />
+        <div className="absolute top-50 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform translate-x-1/2 z-0 -translate-y-1/2" />
+        <div className="absolute bottom-48 left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-10 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+      </div>
       <TeamCarousel
         members={teamMembers}
         title="Project Showcase"
-        background="black"
+        background="transparent"
         autoPlay={10000}
         onMemberChange={(member, index) => {
           console.log("Active member:", member.name);
@@ -74,4 +85,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection;
+export default Project;

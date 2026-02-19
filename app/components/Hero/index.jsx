@@ -43,7 +43,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Title */}
-      <div className="absolute md:top-36 top-52 w-full text-center md:z-30 z-10">
+      <div className="absolute md:top-40 top-52 w-full text-center md:z-30 z-10">
         <h2 className="borel md:text-base text-sm text-white">Hello There —</h2>
         <h2 className="text-white xl:text-4xl lg:text-3xl md:text-2xl text-xl font-bold tracking-wide bruno">
           You&apos;ve Entered a Creative Dimension

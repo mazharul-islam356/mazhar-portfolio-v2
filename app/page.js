@@ -1,7 +1,11 @@
 import AboutMe from "./components/AboutMe";
+import Contact from "./components/Contact";
 import Hero from "./components/Hero";
+import Project from "./components/Projects";
 
 import PurpleGlowBackground from "./components/PurpleGlowBackground";
+import Skills from "./components/Skills";
+import Experience from "./components/WorkExperience";
 
 export default function HomePage() {
   return (
@@ -15,13 +19,13 @@ export default function HomePage() {
 
         <div className="relative z-20">
           <AboutMe />
-          {/* <Skills /> */}
-          {/* <Projects /> */}
-          {/* <Experience /> */}
+          <Skills />
+          <Experience />
+          <Project />
         </div>
       </section>
 
-      {/* <Contact /> */}
+      <Contact />
     </main>
   );
 }

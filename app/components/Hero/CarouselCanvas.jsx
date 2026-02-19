@@ -235,7 +235,7 @@ export default function CarouselCanvas({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
     const isMobile = window.innerWidth <= 768; // breakpoint
-    const fov = !isMobile ? 80 : 120;
+    const fov = !isMobile ? 75 : 120;
     // Camera তৈরি: দৃশ্য দেখার perspective
     const camera = new THREE.PerspectiveCamera(
       fov,

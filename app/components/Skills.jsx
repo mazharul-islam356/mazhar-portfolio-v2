@@ -4,6 +4,11 @@ import Marquee from "react-fast-marquee";
 
 const skills = [
   {
+    _id: "692db432e3e604c6f9508306",
+    name: "Prisma",
+    icon: "https://www.outletexpense.xyz/uploads/3-Emdad/1771531231_69976bdf9ac6c.png",
+  },
+  {
     _id: "692db432e3e604c6f9503306",
     name: "TypeScript",
     icon: "https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1770289951_69847b1f2d65a.png",
@@ -52,6 +57,11 @@ const skills = [
     _id: "692dc5b3e3e604c6f950332e",
     name: "MongoDB",
     icon: "https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1770289776_69847a70f35de.png",
+  },
+  {
+    _id: "692dc5b3e3e684c6f950332e",
+    name: "PostgreSQL",
+    icon: "https://www.outletexpense.xyz/uploads/3-Emdad/1771540056_69978e5829ec5.png",
   },
   {
     _id: "6932eb2604e40bff9e5a5283",

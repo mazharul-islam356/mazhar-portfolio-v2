@@ -1,9 +1,8 @@
-// components/Experience.tsx
 "use client";
 
-import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import ShinyTitle from "./ShinyTitle";
+import { cn } from "../lib/utils";
 
 const experienceData = [
   {
@@ -92,13 +91,7 @@ const experienceData = [
 const Experience = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [hoveredTech, setHoveredTech] = useState(null);
-  const titleSizeClasses = {
-    sm: "text-2xl",
-    md: "text-3xl",
-    lg: "text-4xl",
-    xl: "text-5xl",
-    "2xl": "text-5xl",
-  };
+
   return (
     <section className="min-h-screen bg-black px-4 sm:px-6 lg:px-8">
       {/* Background decoration */}
@@ -109,7 +102,7 @@ const Experience = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center md:mb-16 mb-10">
+        <div className="text-center md:mb-16 mb-10 mt-10 md:mt-5">
           <h2
             className={cn(
               "font-black hero-font uppercase tracking-tight text-center  whitespace-nowrap z-10 md: text-4xl lg:text-4xl xl:text-5xl",
