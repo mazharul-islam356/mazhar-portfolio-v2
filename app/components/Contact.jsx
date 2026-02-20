@@ -182,7 +182,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-black pb-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section className="min-h-screen bg-black pb-10 px-4 lg:px-8 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-50 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform translate-x-1/2 z-0 -translate-y-1/2" />
@@ -224,7 +224,7 @@ const Contact = () => {
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-12 items-start font-poppins">
+        <div className="grid lg:grid-cols-5 md:gap-12 gap-4 items-start font-poppins">
           {/* Contact Info - Left Side */}
           <div className="lg:col-span-2 space-y-8">
             {/* Contact Cards */}
@@ -233,14 +233,14 @@ const Contact = () => {
                 <Link
                   key={index}
                   href={info.href}
-                  className="group flex items-center gap-4 p-5 rounded-md bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+                  className="group flex items-center gap-4 md:p-5 p-4 rounded-md bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
                 >
-                  <div className="w-14 h-14 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all duration-300">
+                  <div className="md:w-14 md:h-14 w-10 h-10 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all duration-300">
                     {info.icon}
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm mb-1">{info.label}</p>
-                    <p className="text-white font-medium group-hover:text-purple-400 transition-colors duration-300">
+                    <p className="text-white font-medium group-hover:text-purple-400 transition-colors md:text-base text-sm duration-300">
                       {info.value}
                     </p>
                   </div>
@@ -330,11 +330,11 @@ const Contact = () => {
           <div className="lg:col-span-3">
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-md p-8 sm:p-10 border border-gray-700/50 shadow-2xl">
               <div className="mb-8">
-                <h3 className="text-2xl font-semibold text-white mb-2 flex items-center gap-2.5">
+                <h3 className="md:text-2xl text-xl font-semibold text-white mb-2 flex items-center gap-2.5">
                   <MessageSquareMore size={22} />
                   Send me a message
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-400 md:text-base text-sm">
                   Fill out the form below and I&apos;ll get back to you as soon
                   as possible.
                 </p>
@@ -652,10 +652,10 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full relative py-4 px-8 rounded-md font-semibold text-white overflow-hidden group disabled:cursor-not-allowed"
+                  className="w-full relative py-4 px-8 rounded-md font-semibold text-white overflow-hidden group disabled:cursor-not-allowed cursor-pointer"
                 >
                   {/* Button Background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-300 group-hover:from-purple-600 group-hover:to-purple-700" />
+                  <div className="absolute inset-0 bg-[linear-gradient(113deg,rgba(130,0,219,0.57)_0%,rgba(81,13,189,1)_100%)]  transition-all duration-300 group-hover:from-purple-600 group-hover:to-purple-700" />
 
                   {/* Shine Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300">

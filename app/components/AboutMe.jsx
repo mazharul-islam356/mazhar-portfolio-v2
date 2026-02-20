@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import ParticleCard, { MagicBento } from "./MagicBento";
-import { BrainCircuit, Code, Info } from "lucide-react";
+import { BrainCircuit, Code, FileDownIcon, Info } from "lucide-react";
+import Link from "next/link";
 
 export default function AboutMe() {
   return (
@@ -32,7 +33,7 @@ export default function AboutMe() {
                   priority
                   width={192}
                   height={192}
-                  src="/myImage3.jpg"
+                  src="/myImage4.jpg"
                   alt="Profile"
                   className="object-cover w-full h-full"
                 />
@@ -43,15 +44,21 @@ export default function AboutMe() {
               <p className="text-gray-400 text-sm mb-4">
                 mazharulislam3569@gmail.com
               </p>
-              <button className="px-10 py-2 bg-purple-700 hover:bg-purple-800 text-sm rounded-full transition">
-                Download CV
-              </button>
+              <Link
+                download="Mazharul_Islam_Resume.pdf"
+                href="/Mazharul_Islam_Resume.pdf"
+              >
+                <button className="px-10 py-2.5 bg-[linear-gradient(113deg,rgba(130,0,219,0.57)_0%,rgba(81,13,189,1)_100%)] hover:bg-purple-800 text-sm rounded-full transition flex hover:scale-105 cursor-pointer hover:font-semibold items-center gap-1 font-poppins">
+                  <FileDownIcon size={18} />
+                  Download CV
+                </button>
+              </Link>
             </div>
           </ParticleCard>
 
           {/* About Me Card */}
           <ParticleCard
-            className="card col-span-2 md:col-span-1"
+            className="card col-span-2 md:col-span-1 md:order-last order-first"
             glowColor="132, 0, 255 font-poppins"
           >
             <div className="card-content">
@@ -77,7 +84,7 @@ export default function AboutMe() {
 
           {/* Latest Roles Card */}
           <ParticleCard
-            className="card col-span-2 md:col-span-1"
+            className="card col-span-2 md:col-span-1 md:order-last"
             glowColor="132, 0, 255"
           >
             <div className="card-content font-poppins">

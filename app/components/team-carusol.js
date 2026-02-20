@@ -57,7 +57,7 @@ export const TeamCarousel = ({
       const w = window.innerWidth;
 
       if (w < 640) {
-        setCardSize({ width: 260, height: 200 });
+        setCardSize({ width: 320, height: 170 });
       } else if (w < 1024) {
         setCardSize({ width: 360, height: 260 });
       } else {

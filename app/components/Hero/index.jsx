@@ -22,18 +22,9 @@ export default function Hero() {
   const { isMobile } = useDeviceDetect();
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
-  const [darkVeilReady, setDarkVeilReady] = useState(false);
-
-  // DarkVeil delay: main content load হওয়ার পর
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDarkVeilReady(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
-    <div className="w-full md:h-[90vh] h-[85vh] overflow-hidden relative">
+    <div className="w-full md:h-[90vh] h-[89vh] overflow-hidden relative">
       {/* Loading Screen */}
       {isLoading && <Loader progress={loadProgress} />}
 
@@ -43,7 +34,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Title */}
-      <div className="absolute md:top-40 top-52 w-full text-center md:z-30 z-10">
+      <div className="absolute top-40  w-full text-center md:z-30 z-10">
         <h2 className="borel md:text-base text-sm text-white">Hello There —</h2>
         <h2 className="text-white xl:text-4xl lg:text-3xl md:text-2xl text-xl font-bold tracking-wide bruno">
           You&apos;ve Entered a Creative Dimension
@@ -52,11 +43,10 @@ export default function Hero() {
       </div>
 
       {/* Background Effect */}
-      {darkVeilReady && (
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <DarkVeil scanlineFrequency={5} scanlineIntensity={0.2} />
-        </div>
-      )}
+
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <DarkVeil scanlineFrequency={5} scanlineIntensity={0.2} />
+      </div>
 
       {/* 3D Carousel */}
       <CarouselCanvas
@@ -66,7 +56,7 @@ export default function Hero() {
       />
 
       {/* Bottom Text */}
-      <div className="absolute md:bottom-10 bottom-32 w-full text-center md:z-30 z-10">
+      <div className="absolute md:bottom-10 bottom-20 w-full text-center md:z-30 z-10">
         <h2 className="text-white md:text-3xl text-2xl opacity-90 dm-serif">
           Introducing myself — I am{" "}
           <span className="autowide md:text-lg text-base">Mazharul Islam</span>

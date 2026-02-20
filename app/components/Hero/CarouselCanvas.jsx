@@ -372,7 +372,7 @@ export default function CarouselCanvas({
   return (
     <canvas
       ref={canvasRef}
-      className="absolute md:top-14 top-0 inset-0 z-10 webgl"
+      className="absolute md:top-14 top-10 inset-0 z-10 webgl"
     />
   );
 }
