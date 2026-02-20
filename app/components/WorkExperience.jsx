@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ShinyTitle from "./ShinyTitle";
 import { cn } from "../lib/utils";
+import Link from "next/link";
 
 const experienceData = [
   {
@@ -71,9 +72,9 @@ const experienceData = [
     id: 3,
     company: "Tech Vixo Digital Agency",
     position: "Frontend Developer",
-    duration: "Aug 2024 - Sep 2024",
+    duration: "Aug-Sep 2024",
     location: "Remote",
-    type: "Contract / Remote",
+    type: "Remote",
     description:
       "Worked briefly with the agency focusing on company portfolio websites and client-facing projects using React-based stacks.",
     responsibilities: [
@@ -168,7 +169,11 @@ const Experience = () => {
               ))}
 
               {/* Download Resume Button */}
-              <button className="w-full mt-6 p-4 rounded-md bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-500/30 text-purple-400 font-medium hover:from-purple-500/30 hover:to-purple-600/30 transition-all duration-300 flex items-center justify-center gap-2 group">
+              <Link
+                download="Mazharul_Islam_Resume.pdf"
+                href="/Mazharul_Islam_Resume.pdf"
+                className="w-full mt-6 p-4 rounded-md bg-linear-to-r from-purple-500/20 to-purple-600/20 border border-purple-500/30 text-purple-400 font-medium hover:from-purple-500/30 hover:to-purple-600/30 transition-all duration-300 flex items-center justify-center gap-2 group"
+              >
                 <svg
                   className="w-5 h-5 group-hover:animate-bounce"
                   fill="none"
@@ -183,7 +188,7 @@ const Experience = () => {
                   />
                 </svg>
                 Download Resume
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -202,7 +207,7 @@ const Experience = () => {
                   {/* Header */}
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                      <h3 className="text-xl sm:text-3xl font-bold text-white mb-2">
                         {exp.position}
                       </h3>
                       <div className="flex flex-wrap items-center gap-3 text-gray-400">

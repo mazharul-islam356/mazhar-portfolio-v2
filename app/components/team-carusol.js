@@ -57,7 +57,7 @@ export const TeamCarousel = ({
       const w = window.innerWidth;
 
       if (w < 640) {
-        setCardSize({ width: 320, height: 170 });
+        setCardSize({ width: 250, height: 150 });
       } else if (w < 1024) {
         setCardSize({ width: 360, height: 260 });
       } else {
@@ -268,7 +268,7 @@ export const TeamCarousel = ({
   return (
     <div
       className={cn(
-        "md:min-h-screen min-h-[75vh] flex flex-col items-center justify-center overflow-hidden relative",
+        "md:min-h-screen min-h-[70vh] flex flex-col items-center justify-center overflow-hidden relative",
         className,
       )}
       style={{ background }}

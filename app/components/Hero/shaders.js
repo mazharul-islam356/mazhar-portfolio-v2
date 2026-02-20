@@ -43,17 +43,27 @@ export const vertexShader = `
  * ফ্র্যাগমেন্ট শেডার:
  * - প্রতিটি pixel এর রং নির্ধারণ করে
  * - texture থেকে রং নিয়ে opacity প্রয়োগ করে
+ * - saturation প্রয়োগ করে
  */
 export const fragmentShader = `
   varying vec2 vUv;  // UV coordinates
   uniform sampler2D uTexture;  // ইমেজ টেক্সচার
   uniform float uOpacity;  // স্বচ্ছতা (0-1)
+  uniform float uSaturation;  // স্যাচুরেশন (0 = গ্রেস্কেল, 1 = নরমাল, 2 = সুপার স্যাচুরেটেড)
   
   void main() {
     // টেক্সচার থেকে রং নেওয়া
     vec4 tex = texture2D(uTexture, vUv);
     
-    // opacity সহ final color
-    gl_FragColor = vec4(tex.rgb, tex.a * uOpacity);
+    // Saturation ক্যালকুলেশন
+    // গ্রেস্কেল মান বের করা: চোখের সংবেদনশীলতা অনুযায়ী
+    float gray = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
+    
+    // Mix করে saturation প্রয়োগ করা
+    // gray এবং original color এর মধ্যে uSaturation অনুযায়ী মিক্স করা
+    vec3 saturated = mix(vec3(gray), tex.rgb, uSaturation);
+    
+    // Final color with opacity
+    gl_FragColor = vec4(saturated, tex.a * uOpacity);
   }
 `;

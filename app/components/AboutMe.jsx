@@ -33,7 +33,7 @@ export default function AboutMe() {
                   priority
                   width={192}
                   height={192}
-                  src="/myImage4.jpg"
+                  src="/myImage5.jpg"
                   alt="Profile"
                   className="object-cover w-full h-full"
                 />
@@ -94,7 +94,7 @@ export default function AboutMe() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 border border-white rounded-md shrink-0">
+                  <div className="w-12 h-12 border border-dashed border-white rounded-md shrink-0">
                     <Image
                       src="https://www.outletexpense.xyz/uploads/3-Emdad/1771531231_69976bdf9ac6c.png"
                       width={500}
@@ -111,7 +111,7 @@ export default function AboutMe() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 border border-white rounded-md shrink-0">
+                  <div className="w-12 h-12 border border-dashed border-white rounded-md shrink-0">
                     <Image
                       src="https://www.outletexpense.xyz/uploads/3-Emdad/1771540056_69978e5829ec5.png"
                       width={500}

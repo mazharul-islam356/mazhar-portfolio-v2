@@ -39,7 +39,7 @@ export const DESKTOP_CONFIG = {
 
 // অ্যানিমেশন সেটিংস
 export const ANIMATION_CONFIG = {
-  autoScrollSpeed: 0.005, // অটো স্ক্রোল স্পিড
+  autoScrollSpeed: 0.004, // অটো স্ক্রোল স্পিড
   dragSensitivity: 0.01, // ড্র্যাগ সেনসিটিভিটি
   easing: 0.075, // স্মুথনেস (কম = বেশি স্মুথ)
   fadeInStep: 0.05, // ফেড ইন স্পিড

@@ -8,13 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-montserrat_Alternates: var(--font-geist-montserrat_Alternates);
   --font-borel: var(--font-borel);
   --font-rajdhani: var(--font-rajdhani);
-  --font-science: var(--font-science);
-  --font-montserrat: var(--font-montserrat);
   --font-bruno: var(--font-bruno);
-  --font-cinzel: var(--font-cinzel);
   --font-dongle: var(--font-dongle);
   --font-audiowide: var(--font-audiowide);
   --font-poppins: var(--font-poppins);
@@ -51,24 +47,12 @@ body {
   font-family: var(--font-rajdhani);
 }
 
-.hero-desc {
-  font-family: var(--font-montserrat_Alternates);
-}
-
 .borel {
   font-family: var(--font-borel);
 }
 
-.cinzel {
-  font-family: var(--font-cinzel);
-}
-
 .bruno {
   font-family: var(--font-bruno);
-}
-
-.science {
-  font-family: var(--font-science);
 }
 
 .loader {

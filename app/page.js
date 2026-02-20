@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <section className="relative bg-black text-white overflow-hidden md:py-32 pb-14 pt-5">
+      <section className="relative bg-black text-white overflow-hidden md:py-32  pt-5">
         <PurpleGlowBackground />
 
         {/* Smooth fade from previous */}

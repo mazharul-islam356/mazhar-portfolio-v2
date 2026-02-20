@@ -1,7 +1,6 @@
-// components/Hero/CarouselCanvas.jsx
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { vertexShader, fragmentShader } from "./shaders";
 import {
@@ -12,279 +11,219 @@ import {
 } from "./constants";
 import { loadAllTextures } from "../../utils/textureLoader";
 
-/**
- * CarouselCanvas Component
- *
- * Props:
- * @param {boolean} isMobile - মোবাইল কিনা
- * @param {function} setIsLoading - loading state setter
- * @param {function} setLoadProgress - progress state setter
- *
- * কিভাবে কাজ করে:
- * 1. Three.js scene, camera, renderer তৈরি করে
- * 2. ইমেজ texture গুলো load করে
- * 3. প্রতিটি ইমেজের জন্য curved mesh তৈরি করে
- * 4. Animation loop চালায়
- * 5. User interaction handle করে
- */
+const wrap = (value, max) => ((value % max) + max) % max;
+
 export default function CarouselCanvas({
   isMobile,
   setIsLoading,
   setLoadProgress,
 }) {
-  // Canvas element এর reference
   const canvasRef = useRef(null);
 
-  // Three.js objects এর references
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
+
   const meshesRef = useRef([]);
   const texturesRef = useRef([]);
   const geometryRef = useRef(null);
-  const animationRef = useRef(null);
 
-  // Drag control refs
-  const mouseDownRef = useRef(false);
+  const rafRef = useRef(0);
+  const initializedRef = useRef(false);
+
+  // drag
+  const downRef = useRef(false);
   const prevXRef = useRef(0);
   const targetXRef = useRef(0);
   const currentXRef = useRef(0);
 
-  // Initialization flag
-  const isInitializedRef = useRef(false);
+  // fade clock
+  const startTimeRef = useRef(0);
 
-  // Device অনুযায়ী config নেওয়া
-  const config = isMobile ? MOBILE_CONFIG : DESKTOP_CONFIG;
-
-  /**
-   * wrap Function
-   * - circular array এর জন্য
-   * - যেমন: index 10 → index 2 (8টি item থাকলে)
-   */
-  const wrap = useCallback((value, max) => {
-    return ((value % max) + max) % max;
-  }, []);
-
-  /**
-   * createMeshes Function
-   * - প্রতিটি texture এর জন্য mesh তৈরি করে
-   * - ShaderMaterial ব্যবহার করে custom shader প্রয়োগ করে
-   */
-  const createMeshes = useCallback(
-    (textures, geometry, scene) => {
-      const meshes = [];
-      const numMeshes = Math.min(IMAGE_PATHS.length * 2, 16);
-
-      for (let i = 0; i < numMeshes; i++) {
-        // ShaderMaterial: custom GPU shader ব্যবহার করে
-        const material = new THREE.ShaderMaterial({
-          uniforms: {
-            uTexture: { value: textures[i % textures.length] },
-            uRadius: { value: config.radius },
-            uOpacity: { value: 0 }, // শুরুতে invisible
-          },
-          vertexShader,
-          fragmentShader,
-          transparent: true,
-        });
-
-        // Mesh: geometry + material = visible object
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-        meshes.push(mesh);
-      }
-
-      return meshes;
-    },
-    [config.radius],
+  const config = useMemo(
+    () => (isMobile ? MOBILE_CONFIG : DESKTOP_CONFIG),
+    [isMobile],
   );
 
-  /**
-   * fadeInMeshes Function
-   * - meshes গুলো ধীরে ধীরে visible করে
-   * - staggered animation তৈরি করে
-   */
-  const fadeInMeshes = useCallback((meshes) => {
-    meshes.forEach((mesh, index) => {
-      setTimeout(() => {
-        const fadeIn = () => {
-          if (mesh?.material?.uniforms?.uOpacity) {
-            const opacity = mesh.material.uniforms.uOpacity;
-            if (opacity.value < 1) {
-              opacity.value += ANIMATION_CONFIG.fadeInStep;
-              requestAnimationFrame(fadeIn);
-            }
-          }
-        };
-        fadeIn();
-      }, index * ANIMATION_CONFIG.fadeInDelay);
-    });
-  }, []);
-
-  /**
-   * Animation Loop
-   * - প্রতি frame এ চলে
-   * - mesh positions আপডেট করে
-   * - scene render করে
-   */
-  const animate = useCallback(() => {
-    // eslint-disable-next-line react-hooks/immutability
-    animationRef.current = requestAnimationFrame(animate);
-
-    if (!isInitializedRef.current) return;
-
-    const meshes = meshesRef.current;
-    const camera = cameraRef.current;
-    const renderer = rendererRef.current;
-    const scene = sceneRef.current;
-
-    if (!meshes.length || !camera || !renderer || !scene) return;
-
-    // Auto scroll: drag না করলে নিজে থেকে চলবে
-    if (!mouseDownRef.current) {
-      targetXRef.current -= ANIMATION_CONFIG.autoScrollSpeed;
-    }
-
-    // Smooth easing: currentX ধীরে ধীরে targetX এর দিকে যায়
-    currentXRef.current +=
-      (targetXRef.current - currentXRef.current) * ANIMATION_CONFIG.easing;
-
-    const numMeshes = meshes.length;
-    const centerIndex = Math.floor(numMeshes / 2);
-
-    // প্রতিটি mesh এর position update
-    for (let i = 0; i < meshes.length; i++) {
-      const mesh = meshes[i];
-      if (!mesh) continue;
-
-      // Wrap: circular positioning
-      const raw = i - currentXRef.current;
-      const wrapped = wrap(raw + centerIndex, numMeshes) - centerIndex;
-
-      // Angle calculation: arc এ position
-      const angle = wrapped * (config.arcSpread / (config.numVisible - 1));
-
-      // Visibility check: দৃশ্যমান range এ আছে কিনা
-      mesh.visible = Math.abs(wrapped) <= config.numVisible / 2;
-      if (!mesh.visible) continue;
-
-      // Position set: trigonometry দিয়ে circular position
-      mesh.position.x = config.radius * Math.sin(angle);
-      mesh.position.z = config.radius * (1 - Math.cos(angle));
-      mesh.scale.set(1, 1, 1);
-
-      // Camera এর দিকে তাকানো
-      mesh.lookAt(camera.position.x, 0, camera.position.z);
-    }
-
-    // Scene render
-    renderer.render(scene, camera);
-  }, [config, wrap]);
-
-  // Mouse/Touch event handlers
-  const handleMouseDown = useCallback((e) => {
-    mouseDownRef.current = true;
-    prevXRef.current = e.clientX;
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    mouseDownRef.current = false;
-  }, []);
-
-  const handleMouseMove = useCallback((e) => {
-    if (!mouseDownRef.current) return;
-    targetXRef.current -=
-      (e.clientX - prevXRef.current) * ANIMATION_CONFIG.dragSensitivity;
-    prevXRef.current = e.clientX;
-  }, []);
-
-  const handleTouchStart = useCallback((e) => {
-    mouseDownRef.current = true;
-    prevXRef.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    mouseDownRef.current = false;
-  }, []);
-
-  const handleTouchMove = useCallback((e) => {
-    if (!mouseDownRef.current) return;
-    targetXRef.current -=
-      (e.touches[0].clientX - prevXRef.current) *
-      ANIMATION_CONFIG.dragSensitivity;
-    prevXRef.current = e.touches[0].clientX;
-  }, []);
-
-  // Resize handler
-  const handleResize = useCallback(() => {
-    const camera = cameraRef.current;
-    const renderer = rendererRef.current;
-
-    if (!camera || !renderer) return;
-
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }, []);
-
-  // Main initialization effect
   useEffect(() => {
-    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // Scene তৈরি: সব 3D objects এর container
+    let disposed = false;
+
+    // Scene
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    const isMobile = window.innerWidth <= 768; // breakpoint
-    const fov = !isMobile ? 75 : 120;
-    // Camera তৈরি: দৃশ্য দেখার perspective
+
+    // Camera (keep your existing behavior)
+    const isMobileViewport = window.innerWidth <= 768;
+    const fov = !isMobileViewport ? 75 : 120;
+
     const camera = new THREE.PerspectiveCamera(
       fov,
-      window.innerWidth / window.innerHeight, // Aspect ratio
-      0.01, // Near clipping plane
-      20, // Far clipping plane
+      window.innerWidth / window.innerHeight,
+      0.01,
+      20,
     );
     camera.position.z = config.cameraZ;
-    scene.add(camera);
     cameraRef.current = camera;
+    scene.add(camera);
 
-    // Renderer তৈরি: scene কে canvas এ আঁকে
+    // Renderer
     const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      antialias: true, // মসৃণ edges
-      alpha: true, // transparent background
+      canvas,
+      antialias: true,
+      alpha: true,
       powerPreference: "high-performance",
     });
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Pixel Ratio: high DPI displays এ ভালো quality
     renderer.setPixelRatio(
       Math.min(config.pixelRatio, window.devicePixelRatio),
     );
     renderer.setClearColor(0x000000, 0);
     rendererRef.current = renderer;
 
-    // Geometry তৈরি: plane এর shape
+    // Geometry
     const geometry = new THREE.PlaneGeometry(
       config.planeWidth,
       config.planeHeight,
-      config.widthSegments, // বেশি segments = বেশি smooth curve
+      config.widthSegments,
       1,
     );
     geometryRef.current = geometry;
 
-    // Event listeners add
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("resize", handleResize);
+    // Create meshes (same count logic)
+    const createMeshes = (textures) => {
+      const meshes = [];
+      const numMeshes = Math.min(IMAGE_PATHS.length * 2, 16);
 
-    // Textures load এবং meshes তৈরি
-    const init = async () => {
+      for (let i = 0; i < numMeshes; i++) {
+        const material = new THREE.ShaderMaterial({
+          uniforms: {
+            uTexture: { value: textures[i % textures.length] },
+            uRadius: { value: config.radius },
+            uOpacity: { value: 0 },
+            uSaturation: { value: 0.7 },
+          },
+          vertexShader,
+          fragmentShader,
+          transparent: true,
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        meshes.push(mesh);
+      }
+      return meshes;
+    };
+
+    // Stagger fade-in (same feel as setTimeout version, but cheaper)
+    // Uses: delay per mesh + incremental opacity per frame
+    const updateFade = (timeMs) => {
+      const meshes = meshesRef.current;
+      if (!meshes.length) return;
+
+      const t = (timeMs - startTimeRef.current) / 1000;
+
+      const delay = (ANIMATION_CONFIG.fadeInDelay ?? 60) / 1000; // ms->s
+      // Convert your "step per frame" to a rough speed:
+      // If fadeInStep=0.03 at ~60fps => ~1.8 opacity/sec
+      const speed = (ANIMATION_CONFIG.fadeInStep ?? 0.03) * 60;
+
+      for (let i = 0; i < meshes.length; i++) {
+        const m = meshes[i];
+        const localT = Math.max(0, t - i * delay);
+        const opacity = Math.min(1, localT * speed);
+        const u = m.material?.uniforms?.uOpacity;
+        if (u) u.value = opacity;
+      }
+    };
+
+    // Animate (same layout + lookAt)
+    const animate = (timeMs) => {
+      rafRef.current = requestAnimationFrame(animate);
+      if (!initializedRef.current) return;
+
+      const meshes = meshesRef.current;
+      const cam = cameraRef.current;
+      const rend = rendererRef.current;
+      const scn = sceneRef.current;
+      if (!meshes.length || !cam || !rend || !scn) return;
+
+      // fade update
+      updateFade(timeMs);
+
+      // auto scroll
+      if (!downRef.current) {
+        targetXRef.current -= ANIMATION_CONFIG.autoScrollSpeed;
+      }
+
+      // easing
+      currentXRef.current +=
+        (targetXRef.current - currentXRef.current) * ANIMATION_CONFIG.easing;
+
+      const numMeshes = meshes.length;
+      const centerIndex = Math.floor(numMeshes / 2);
+
+      for (let i = 0; i < numMeshes; i++) {
+        const mesh = meshes[i];
+
+        const raw = i - currentXRef.current;
+        const wrapped = wrap(raw + centerIndex, numMeshes) - centerIndex;
+
+        const angle = wrapped * (config.arcSpread / (config.numVisible - 1));
+
+        mesh.visible = Math.abs(wrapped) <= config.numVisible / 2;
+        if (!mesh.visible) continue;
+
+        mesh.position.x = config.radius * Math.sin(angle);
+        mesh.position.z = config.radius * (1 - Math.cos(angle));
+        mesh.scale.set(1, 1, 1);
+
+        // keep EXACT orientation behavior
+        mesh.lookAt(cam.position.x, 0, cam.position.z);
+      }
+
+      rend.render(scn, cam);
+    };
+
+    // Pointer events (same drag logic, less global overhead)
+    const onPointerDown = (e) => {
+      downRef.current = true;
+      prevXRef.current = e.clientX;
+      canvas.setPointerCapture?.(e.pointerId);
+    };
+    const onPointerUp = (e) => {
+      downRef.current = false;
+      canvas.releasePointerCapture?.(e.pointerId);
+    };
+    const onPointerMove = (e) => {
+      if (!downRef.current) return;
+      targetXRef.current -=
+        (e.clientX - prevXRef.current) * ANIMATION_CONFIG.dragSensitivity;
+      prevXRef.current = e.clientX;
+    };
+
+    canvas.addEventListener("pointerdown", onPointerDown, { passive: true });
+    canvas.addEventListener("pointerup", onPointerUp, { passive: true });
+    canvas.addEventListener("pointercancel", onPointerUp, { passive: true });
+    canvas.addEventListener("pointermove", onPointerMove, { passive: true });
+
+    const onResize = () => {
+      const cam = cameraRef.current;
+      const rend = rendererRef.current;
+      if (!cam || !rend) return;
+      cam.aspect = window.innerWidth / window.innerHeight;
+      cam.updateProjectionMatrix();
+      rend.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", onResize);
+
+    // Init
+    (async () => {
       try {
+        setIsLoading(true);
+
         const textureLoader = new THREE.TextureLoader();
 
         const textures = await loadAllTextures(
@@ -292,82 +231,62 @@ export default function CarouselCanvas({
           textureLoader,
           renderer,
           setLoadProgress,
-          isMobile,
+          isMobileViewport,
         );
+
+        if (disposed) return;
 
         texturesRef.current = textures;
 
         if (textures.length > 0) {
-          const meshes = createMeshes(textures, geometry, scene);
-          meshesRef.current = meshes;
-
-          isInitializedRef.current = true;
-          fadeInMeshes(meshes);
-          animate();
+          meshesRef.current = createMeshes(textures);
+          initializedRef.current = true;
+          startTimeRef.current = performance.now();
+          rafRef.current = requestAnimationFrame(animate);
         }
 
-        setTimeout(() => setIsLoading(false), 500);
+        setTimeout(() => !disposed && setIsLoading(false), 500);
       } catch (error) {
         console.error("Initialization failed:", error);
-        setIsLoading(false);
+        !disposed && setIsLoading(false);
       }
-    };
+    })();
 
-    init();
-
-    // Cleanup function
+    // Cleanup
     return () => {
-      // Animation cancel
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      disposed = true;
 
-      // Event listeners remove
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(rafRef.current);
 
-      // Renderer dispose
-      rendererRef.current?.dispose();
+      window.removeEventListener("resize", onResize);
 
-      // Geometry dispose
-      geometryRef.current?.dispose();
+      canvas.removeEventListener("pointerdown", onPointerDown);
+      canvas.removeEventListener("pointerup", onPointerUp);
+      canvas.removeEventListener("pointercancel", onPointerUp);
+      canvas.removeEventListener("pointermove", onPointerMove);
 
-      // Meshes dispose
+      // dispose
       meshesRef.current.forEach((mesh) => {
-        mesh?.material?.dispose();
+        if (!mesh) return;
+        scene.remove(mesh);
+        mesh.material?.dispose?.();
       });
-
-      // Textures dispose
-      texturesRef.current.forEach((texture) => {
-        texture?.dispose();
-      });
-
-      // Reset refs
       meshesRef.current = [];
+
+      geometryRef.current?.dispose?.();
+      geometryRef.current = null;
+
+      texturesRef.current.forEach((t) => t?.dispose?.());
       texturesRef.current = [];
-      isInitializedRef.current = false;
+
+      rendererRef.current?.dispose?.();
+      rendererRef.current = null;
+
+      sceneRef.current = null;
+      cameraRef.current = null;
+      initializedRef.current = false;
     };
-  }, [
-    isMobile,
-    config,
-    animate,
-    createMeshes,
-    fadeInMeshes,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseMove,
-    handleTouchStart,
-    handleTouchEnd,
-    handleTouchMove,
-    handleResize,
-    setIsLoading,
-    setLoadProgress,
-  ]);
+  }, [config, setIsLoading, setLoadProgress]);
 
   return (
     <canvas

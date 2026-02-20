@@ -11,13 +11,6 @@ import {
   Science_Gothic,
 } from "next/font/google";
 import "./globals.css";
-import { Suspense } from "react";
-import Loader from "./components/Loader";
-const montserrat_Alternates = Montserrat_Alternates({
-  weight: ["400", "600", "700"],
-  variable: "--font-montserrat_Alternates",
-  subsets: ["latin"],
-});
 
 const borel = Borel({
   weight: "400",
@@ -28,12 +21,6 @@ const borel = Borel({
 const rajdhani = Rajdhani({
   weight: ["400", "500", "600", "700"],
   variable: "--font-rajdhani",
-  subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -55,26 +42,14 @@ const audiowide = Audiowide({
   subsets: ["latin"],
 });
 
-const science = Science_Gothic({
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-science",
-  subsets: ["latin"],
-});
-
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
   subsets: ["latin"],
 });
 
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "Mazharul Islam | Portfolio",
+  title: "Mazharul Islam",
   description: "Front-End Developer Portfolio",
 };
 
@@ -83,18 +58,18 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${bruno.variable}
+      
         ${rajdhani.variable}
-        ${montserrat_Alternates.variable}
-        ${montserrat.variable}
         ${audiowide.variable}
         ${dongle.variable}
         ${borel.variable}
-        ${cinzel.variable}
+     
         ${poppins.variable}
-        ${science.variable}
+    
          antialiased`}
       >
-        <Suspense fallback={<Loader />}>{children}</Suspense>
+        {children}
+        {/* <Suspense fallback={<Loader />}></Suspense> */}
       </body>
     </html>
   );

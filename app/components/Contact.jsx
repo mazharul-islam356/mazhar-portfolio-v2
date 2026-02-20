@@ -55,17 +55,36 @@ const Contact = () => {
 
     if (!validateForm()) return;
 
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await fetch(
+        `https://voterkotha-server.vercel.app/api/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+      const data = await res.json();
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+      if (!res.ok) {
+        // If backend sends field errors:
+        if (data?.errors) setErrors(data.errors);
+        throw new Error(data?.message || "Failed to send message");
+      }
+
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (err) {
+      // You can show a toast or set a general error state
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -182,7 +201,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-black pb-10 px-4 lg:px-8 relative overflow-hidden">
+    <section className="min-h-screen bg-black px-4 lg:px-8 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-50 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform translate-x-1/2 z-0 -translate-y-1/2" />
