@@ -36,7 +36,7 @@ const teamMembers = [
   },
   {
     id: "5",
-    name: "Zunayed Saki (Portfolio)",
+    name: "Portfolio",
     role: "Founder",
     image: "/zunayeksaki-p.webp",
     bio: "Visionary leader with 10+ years of experience.",

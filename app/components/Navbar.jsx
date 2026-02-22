@@ -14,7 +14,7 @@ export default function Navbar() {
           className="
             w-full max-w-5xl
             flex items-center justify-between
-            rounded-full 
+            rounded-full sticky 
             border border-white/10 
             bg-white/5 
             backdrop-blur-xl

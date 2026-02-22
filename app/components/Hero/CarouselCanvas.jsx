@@ -55,7 +55,7 @@ export default function CarouselCanvas({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // Camera (keep your existing behavior)
+    // Camera
     const isMobileViewport = window.innerWidth <= 768;
     const fov = !isMobileViewport ? 75 : 120;
 
@@ -67,7 +67,6 @@ export default function CarouselCanvas({
     );
     camera.position.z = config.cameraZ;
     cameraRef.current = camera;
-    scene.add(camera);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -83,20 +82,19 @@ export default function CarouselCanvas({
     renderer.setClearColor(0x000000, 0);
     rendererRef.current = renderer;
 
-    // Geometry
+    // Geometry (less segments on mobile for performance)
     const geometry = new THREE.PlaneGeometry(
       config.planeWidth,
       config.planeHeight,
-      config.widthSegments,
+      isMobile ? 4 : config.widthSegments,
       1,
     );
     geometryRef.current = geometry;
 
-    // Create meshes (same count logic)
+    // Create meshes function
     const createMeshes = (textures) => {
       const meshes = [];
       const numMeshes = Math.min(IMAGE_PATHS.length * 2, 16);
-
       for (let i = 0; i < numMeshes; i++) {
         const material = new THREE.ShaderMaterial({
           uniforms: {
@@ -109,7 +107,6 @@ export default function CarouselCanvas({
           fragmentShader,
           transparent: true,
         });
-
         const mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
         meshes.push(mesh);
@@ -117,29 +114,25 @@ export default function CarouselCanvas({
       return meshes;
     };
 
-    // Stagger fade-in (same feel as setTimeout version, but cheaper)
-    // Uses: delay per mesh + incremental opacity per frame
+    // Fade-in per mesh
     const updateFade = (timeMs) => {
       const meshes = meshesRef.current;
       if (!meshes.length) return;
 
       const t = (timeMs - startTimeRef.current) / 1000;
-
-      const delay = (ANIMATION_CONFIG.fadeInDelay ?? 60) / 1000; // ms->s
-      // Convert your "step per frame" to a rough speed:
-      // If fadeInStep=0.03 at ~60fps => ~1.8 opacity/sec
+      const delay = (ANIMATION_CONFIG.fadeInDelay ?? 60) / 1000;
       const speed = (ANIMATION_CONFIG.fadeInStep ?? 0.03) * 60;
 
       for (let i = 0; i < meshes.length; i++) {
         const m = meshes[i];
         const localT = Math.max(0, t - i * delay);
         const opacity = Math.min(1, localT * speed);
-        const u = m.material?.uniforms?.uOpacity;
-        if (u) u.value = opacity;
+        if (m.material?.uniforms?.uOpacity)
+          m.material.uniforms.uOpacity.value = opacity;
       }
     };
 
-    // Animate (same layout + lookAt)
+    // Animate loop
     const animate = (timeMs) => {
       rafRef.current = requestAnimationFrame(animate);
       if (!initializedRef.current) return;
@@ -147,18 +140,13 @@ export default function CarouselCanvas({
       const meshes = meshesRef.current;
       const cam = cameraRef.current;
       const rend = rendererRef.current;
-      const scn = sceneRef.current;
-      if (!meshes.length || !cam || !rend || !scn) return;
+      if (!meshes.length || !cam || !rend) return;
 
-      // fade update
       updateFade(timeMs);
 
-      // auto scroll
-      if (!downRef.current) {
+      if (!downRef.current)
         targetXRef.current -= ANIMATION_CONFIG.autoScrollSpeed;
-      }
 
-      // easing
       currentXRef.current +=
         (targetXRef.current - currentXRef.current) * ANIMATION_CONFIG.easing;
 
@@ -167,10 +155,8 @@ export default function CarouselCanvas({
 
       for (let i = 0; i < numMeshes; i++) {
         const mesh = meshes[i];
-
         const raw = i - currentXRef.current;
         const wrapped = wrap(raw + centerIndex, numMeshes) - centerIndex;
-
         const angle = wrapped * (config.arcSpread / (config.numVisible - 1));
 
         mesh.visible = Math.abs(wrapped) <= config.numVisible / 2;
@@ -179,15 +165,13 @@ export default function CarouselCanvas({
         mesh.position.x = config.radius * Math.sin(angle);
         mesh.position.z = config.radius * (1 - Math.cos(angle));
         mesh.scale.set(1, 1, 1);
-
-        // keep EXACT orientation behavior
         mesh.lookAt(cam.position.x, 0, cam.position.z);
       }
 
-      rend.render(scn, cam);
+      rend.render(scene, cam);
     };
 
-    // Pointer events (same drag logic, less global overhead)
+    // Pointer events
     const onPointerDown = (e) => {
       downRef.current = true;
       prevXRef.current = e.clientX;
@@ -219,53 +203,54 @@ export default function CarouselCanvas({
     };
     window.addEventListener("resize", onResize);
 
-    // Init
+    // Initialize
     (async () => {
       try {
         setIsLoading(true);
 
-        const textureLoader = new THREE.TextureLoader();
+        const loader = new THREE.TextureLoader();
 
+        // Placeholder first
+        const placeholder = await loader.loadAsync(IMAGE_PATHS[0]);
+        meshesRef.current = createMeshes([placeholder]);
+        initializedRef.current = true;
+        startTimeRef.current = performance.now();
+        rafRef.current = requestAnimationFrame(animate);
+
+        // Load all textures in parallel
         const textures = await loadAllTextures(
           IMAGE_PATHS,
-          textureLoader,
+          loader,
           renderer,
           setLoadProgress,
           isMobileViewport,
         );
-
         if (disposed) return;
 
         texturesRef.current = textures;
 
-        if (textures.length > 0) {
-          meshesRef.current = createMeshes(textures);
-          initializedRef.current = true;
-          startTimeRef.current = performance.now();
-          rafRef.current = requestAnimationFrame(animate);
-        }
+        // Swap textures in meshes
+        meshesRef.current.forEach((mesh, i) => {
+          mesh.material.uniforms.uTexture.value = textures[i % textures.length];
+        });
 
-        setTimeout(() => !disposed && setIsLoading(false), 500);
-      } catch (error) {
-        console.error("Initialization failed:", error);
+        setTimeout(() => !disposed && setIsLoading(false), 300);
+      } catch (err) {
+        console.error("Carousel init failed:", err);
         !disposed && setIsLoading(false);
       }
     })();
 
-    // Cleanup
     return () => {
       disposed = true;
-
       cancelAnimationFrame(rafRef.current);
 
       window.removeEventListener("resize", onResize);
-
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointerup", onPointerUp);
       canvas.removeEventListener("pointercancel", onPointerUp);
       canvas.removeEventListener("pointermove", onPointerMove);
 
-      // dispose
       meshesRef.current.forEach((mesh) => {
         if (!mesh) return;
         scene.remove(mesh);

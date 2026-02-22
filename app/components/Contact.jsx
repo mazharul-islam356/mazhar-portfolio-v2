@@ -195,7 +195,7 @@ const Contact = () => {
     },
     {
       name: "WhatsApp",
-      href: "https://dribbble.com/yourusername",
+      href: "https://wa.me/+8801866186426",
       icon: <FaWhatsapp size={20}></FaWhatsapp>,
     },
   ];

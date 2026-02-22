@@ -1,13 +1,12 @@
 // components/Hero/index.jsx
 "use client";
 
-import { useEffect, useState } from "react";
-import Loader from "../Loader";
+import { useState } from "react";
 import Navbar from "../Navbar";
 import GlassButtonDemo from "./GlassButton";
-import DarkVeil from "./DarkVeill";
 import CarouselCanvas from "./CarouselCanvas";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
+import Loader from "../Loader";
 
 /**
  * Hero Component
@@ -24,7 +23,7 @@ export default function Hero() {
   const [loadProgress, setLoadProgress] = useState(0);
 
   return (
-    <div className="w-full md:h-[90vh] h-[89vh] overflow-hidden relative">
+    <div className="w-full md:h-screen h-[89vh] overflow-hidden relative bg-black">
       {/* Loading Screen */}
       {isLoading && <Loader progress={loadProgress} />}
 
@@ -45,10 +44,11 @@ export default function Hero() {
       {/* Background Effect */}
 
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <DarkVeil scanlineFrequency={5} scanlineIntensity={0.2} />
+        <div className="absolute top-0 left-10 md:w-72 w-40 h-40 md:h-72 md:bg-purple-500/40 bg-purple-500/60  rounded-full blur-[100px] animate-spin" />
+        <div className="absolute bottom-10 right-20 md:w-96 md:h-96 w-32 h-32 md:bg-purple-500/40 bg-purple-500/60  rounded-full blur-[120px] animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-125 md:h-125 w-60 h-60 md:bg-purple-600/20 bg-purple-500/40  rounded-full blur-[150px]" />
       </div>
 
-      {/* 3D Carousel */}
       <CarouselCanvas
         isMobile={isMobile}
         setIsLoading={setIsLoading}
