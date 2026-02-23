@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ShinyTitle from "./ShinyTitle";
 import { cn } from "../lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 
 const experienceData = [
   {
@@ -25,15 +26,16 @@ const experienceData = [
     ],
     technologies: [
       "Next.js",
-      "React",
       "Tailwind CSS",
       "Shadcn UI",
       "TypeScript",
       "PostgreSQL",
-      "NestJS",
-      "Git",
+      "Nodejs",
+      "Express",
+      "Prisma",
+      "Better Auth",
     ],
-    logo: "SC",
+    logo: "/softselify.jpg",
   },
 
   {
@@ -65,7 +67,7 @@ const experienceData = [
       "REST APIs",
       "GitHub",
     ],
-    logo: "SI",
+    logo: "/squad.jpg",
   },
 
   {
@@ -84,8 +86,8 @@ const experienceData = [
       "Worked on client demo projects",
       "Collaborated remotely with designers",
     ],
-    technologies: ["React", "Tailwind CSS", "JavaScript", "Git"],
-    logo: "TV",
+    technologies: ["React", "Tailwind CSS", "JavaScript", "Git", "Firebase"],
+    logo: "/tech-vixo.jpg",
   },
 ];
 
@@ -141,14 +143,20 @@ const Experience = () => {
                   <div className="flex items-center gap-4">
                     {/* Company Logo */}
                     <div
-                      className={`w-14 h-14 rounded-md flex items-center justify-center text-lg font-bold transition-all duration-300
-                      ${
-                        activeTab === index
-                          ? "bg-gradient-to-br from-purple-400 to-purple-600 text-white"
-                          : "bg-gray-700 text-purple-400 group-hover:bg-purple-500/20"
-                      }`}
+                      className={`flex items-center justify-center transition-all duration-300 rounded-full p-1  overflow-hidden
+  ${
+    activeTab === index
+      ? "bg-gradient-to-br from-purple-400 to-purple-600"
+      : "bg-gray-700 group-hover:bg-purple-500/20"
+  }`}
                     >
-                      {exp.logo}
+                      <Image
+                        src={exp.logo}
+                        alt="logo"
+                        width={32}
+                        height={32}
+                        className="object-cover w-14 h-14 rounded-full"
+                      />
                     </div>
                     <div className="flex-1">
                       <h3

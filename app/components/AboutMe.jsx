@@ -33,7 +33,7 @@ export default function AboutMe() {
                   priority
                   width={192}
                   height={192}
-                  src="/myImage5.jpg"
+                  src="/myImg.jpg"
                   alt="Profile"
                   className="object-cover w-full h-full"
                 />

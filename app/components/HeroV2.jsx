@@ -42,7 +42,7 @@ export default function Hero2() {
     { id: 10, image: "/saki-home.png", alt: "Image 2" },
     { id: 11, image: "/celtel.png", alt: "Image 2" },
     { id: 12, image: "/taiba.png", alt: "Image 2" },
-    { id: 13, image: "/celtel.png", alt: "Image 1" },
+    { id: 13, image: "/commeriva-home.png", alt: "Image 1" },
     { id: 14, image: "/mks.png", alt: "Image 2" },
     // { id: 15, image: "/mks.png", alt: "Image 2" },
     // { id: 16, image: "/mks.png", alt: "Image 2" },
@@ -64,30 +64,30 @@ export default function Hero2() {
   }, []);
 
   const mobileConfig = {
-    containerHeight: 110,
+    containerHeight: 125,
     geometry: {
-      depthIntensity: 0.6,
-      radius: 170,
-      cameraAngle: 35,
-      perspective: 410,
+      depthIntensity: 1,
+      radius: 220,
+      cameraAngle: 1,
+      perspective: 700,
     },
     visualEffect: {
-      enableReflection: false,
-      minScale: 0.5,
+      enableReflection: true,
+      minScale: 0.1,
     },
   };
 
   const desktopConfig = {
-    containerHeight: 220,
+    containerHeight: 290,
     geometry: {
-      depthIntensity: 0.8,
-      radius: 370,
-      cameraAngle: 27,
-      perspective: 800,
+      depthIntensity: 5,
+      radius: 500,
+      cameraAngle: -1,
+      perspective: 2000,
     },
     visualEffect: {
       enableReflection: true,
-      minScale: 0.8,
+      minScale: -0.2,
     },
   };
 
@@ -100,7 +100,7 @@ export default function Hero2() {
         enableLightboxWhenClick={true}
         autoRotateConfig={{
           enabled: true,
-          speed: isMobile ? 0.05 : 0.1,
+          speed: isMobile ? 0.1 : 0.1,
         }}
         lightboxOptions={{
           enableKeyboardNavigation: true,

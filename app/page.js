@@ -1,4 +1,5 @@
 import AboutMe from "./components/AboutMe";
+import ClientReview from "./components/ClientReview";
 import Contact from "./components/Contact";
 import Hero from "./components/Hero";
 import Hero2 from "./components/HeroV2";
@@ -22,6 +23,7 @@ export default function HomePage() {
           <Skills />
           <Experience />
           <Project />
+          <ClientReview />
         </div>
       </section>
 

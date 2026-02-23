@@ -428,7 +428,7 @@ const Contact = () => {
                         onFocus={() => setFocusedField("name")}
                         onBlur={() => setFocusedField(null)}
                         placeholder="Enter your name"
-                        className={`w-full pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
+                        className={`w-full pl-10 md:pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
                           ${
                             errors.name
                               ? "border-red-500/50 focus:border-red-500"
@@ -495,7 +495,7 @@ const Contact = () => {
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField(null)}
                         placeholder="example@gmaiil.com"
-                        className={`w-full pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
+                        className={`w-full pl-10 md:pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
                           ${
                             errors.email
                               ? "border-red-500/50 focus:border-red-500"
@@ -563,7 +563,7 @@ const Contact = () => {
                       onFocus={() => setFocusedField("subject")}
                       onBlur={() => setFocusedField(null)}
                       placeholder="Project Inquiry"
-                      className={`w-full pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
+                      className={`w-full pl-10 md:pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300
                         ${
                           errors.subject
                             ? "border-red-500/50 focus:border-red-500"
@@ -630,7 +630,7 @@ const Contact = () => {
                       onBlur={() => setFocusedField(null)}
                       placeholder="Tell me about your project, goals, and timeline..."
                       rows={6}
-                      className={`w-full pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300 resize-none
+                      className={`w-full pl-10 md:pl-12 pr-5 py-3 rounded-md bg-gray-900/50 border-2 text-white placeholder-gray-500 outline-none transition-all duration-300 resize-none
                         ${
                           errors.message
                             ? "border-red-500/50 focus:border-red-500"
@@ -661,9 +661,6 @@ const Contact = () => {
                     ) : (
                       <span />
                     )}
-                    <p className="text-gray-500 text-sm">
-                      {formData.message.length} / 500
-                    </p>
                   </div>
                 </div>
 

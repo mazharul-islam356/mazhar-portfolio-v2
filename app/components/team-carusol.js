@@ -307,7 +307,7 @@ export const TeamCarousel = ({
       >
         {/* Arrows */}
         {showArrows && totalMembers > 1 && (
-          <>
+          <div className="hidden md:block">
             <button
               onClick={() => paginate(-1)}
               className="absolute left-5 top-1/2 -translate-y-1/2 z-20 bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
@@ -321,7 +321,7 @@ export const TeamCarousel = ({
             >
               <ChevronRight />
             </button>
-          </>
+          </div>
         )}
 
         {/* Cards */}

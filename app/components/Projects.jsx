@@ -3,12 +3,12 @@ import TeamCarousel from "./team-carusol";
 
 const teamMembers = [
   {
-    id: "1",
-    name: "GadgetCheap",
+    id: "7",
+    name: "Gadget Bodda",
     role: "Founder",
-    image: "/gadcheap-p.webp",
+    image: "/gadgetboadda-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
-    liveUrl: "https://gad-style-website-five.vercel.app",
+    liveUrl: "https://www.gadgetboddaa.com",
   },
   {
     id: "2",
@@ -20,11 +20,11 @@ const teamMembers = [
   },
   {
     id: "3",
-    name: "MaxCart",
+    name: "GadgetCheap",
     role: "Founder",
-    image: "/maxcart-p.webp",
+    image: "/gadcheap-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
-    liveUrl: "https://maxcart.com.bd",
+    liveUrl: "https://gad-style-website-five.vercel.app",
   },
   {
     id: "4",
@@ -52,11 +52,19 @@ const teamMembers = [
   },
   {
     id: "7",
-    name: "Gadget Bodda",
+    name: "MaxCart",
     role: "Founder",
-    image: "/gadgetboadda-p.webp",
+    image: "/maxcart-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
-    liveUrl: "https://www.gadgetboddaa.com",
+    liveUrl: "https://maxcart.com.bd",
+  },
+  {
+    id: "8",
+    name: "Commeriva",
+    role: "Founder",
+    image: "/commeriva-p.webp",
+    bio: "Visionary leader with 10+ years of experience.",
+    liveUrl: "https://commeriva.vercel.app",
   },
 ];
 

@@ -103,7 +103,7 @@ export default function Navbar() {
           md:hidden
           fixed top-0 right-0 h-full w-64
           border-l border-white/10 
-          bg-black/80
+          bg-white/5
           backdrop-blur-xl
           shadow-[0_0_40px_rgba(255,255,255,0.05)]
           z-5000
