@@ -12,7 +12,7 @@ const cardVariants = {
 
 export default function ClientReview() {
   return (
-    <div className="max-w-7xl mx-auto py-16  text-slate-100 md:px-8 px-4">
+    <div className="max-w-7xl mx-auto md:pt-12 pb-14 md:pb-8 text-slate-100 md:px-8 px-4">
       <div className="text-center md:mb-16 mb-10 mt-10 md:mt-5">
         <h2
           className={cn(

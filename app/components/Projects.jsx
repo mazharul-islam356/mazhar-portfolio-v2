@@ -3,7 +3,7 @@ import TeamCarousel from "./team-carusol";
 
 const teamMembers = [
   {
-    id: "7",
+    id: "1",
     name: "Gadget Bodda",
     role: "Founder",
     image: "/gadgetboadda-p.webp",
