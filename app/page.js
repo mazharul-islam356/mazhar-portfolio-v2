@@ -1,6 +1,7 @@
 import AboutMe from "./components/AboutMe";
 import Contact from "./components/Contact";
 import Hero from "./components/Hero";
+import Hero2 from "./components/HeroV2";
 import HeroV2 from "./components/HeroV2";
 import Project from "./components/Projects";
 
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      {/* <Hero2 /> */}
       <section className="relative bg-black text-white overflow-hidden md:pb-32 md:pt-10  pt-5">
         <PurpleGlowBackground />
 
