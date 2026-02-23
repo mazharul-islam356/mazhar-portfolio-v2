@@ -11,6 +11,10 @@ import {
   Science_Gothic,
 } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
+import AnalyticsTracker from "./providers";
+import Loader from "./components/Loader";
+import { Suspense } from "react";
 
 const borel = Borel({
   weight: "400",
@@ -56,6 +60,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-J1SS1Q5X8T`}
+          strategy="afterInteractive"
+        />
+
+        <Script id="ga-script" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-J1SS1Q5X8T');
+          `}
+        </Script>
+      </head>
       <body
         className={`${bruno.variable}
       
@@ -68,8 +87,8 @@ export default function RootLayout({ children }) {
     
          antialiased`}
       >
-        {children}
-        {/* <Suspense fallback={<Loader />}></Suspense> */}
+        <AnalyticsTracker />
+        <Suspense fallback={<Loader />}>{children}</Suspense>
       </body>
     </html>
   );
