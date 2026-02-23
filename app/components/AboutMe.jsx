@@ -6,7 +6,10 @@ import Link from "next/link";
 
 export default function AboutMe() {
   return (
-    <div className="min-h-[80vh] bg-black text-white relative">
+    <section
+      id="about-me"
+      className="min-h-[80vh] bg-black text-white relative"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Animated background orbs */}
         <div className="absolute top-0 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-[100px] animate-pulse" />
@@ -70,14 +73,15 @@ export default function AboutMe() {
                 ● Open to work
               </p>
               <p className="text-gray-300 leading-relaxed text-sm font-poppins">
-                Visual Designer with 7+ years of experience. I&apos;m all about
-                crafting user-friendly interfaces that are functional and
-                visually compelling.
+                Creative Frontend Developer specializing in building modern,
+                highperformance interfaces with Next.js, Tailwind CSS, and
+                shadcn/ui while maintaining strong UI/UX principles.
               </p>
               <p className="text-gray-300 leading-relaxed text-sm mt-3 font-poppins">
-                Born and raised in the beautiful Costa Rica. When I&apos;m not
-                busy designing, you&apos;ll likely find me playing board games,
-                exploring Animal Crossing, or cooking mouthwatering Arepas.
+                Experienced in developing backend features with Node.js, Express
+                and MongoDB, with a passion for crafting visually engaging user
+                experiences. Currently deepening expertise in Node.js,
+                PostgreSQL, and Golang to a well-rounded full-stack engineer.
               </p>
             </div>
           </ParticleCard>
@@ -132,6 +136,6 @@ export default function AboutMe() {
           </ParticleCard>
         </MagicBento>
       </div>
-    </div>
+    </section>
   );
 }

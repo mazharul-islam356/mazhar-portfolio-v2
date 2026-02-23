@@ -96,7 +96,10 @@ const Experience = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
 
   return (
-    <section className="min-h-screen bg-black px-4 sm:px-6 lg:px-8">
+    <section
+      id="experience"
+      className="min-h-screen bg-black px-4 sm:px-6 lg:px-8"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />

@@ -4,7 +4,10 @@ import Hero2 from "../HeroV2";
 
 export default function Hero() {
   return (
-    <div className="w-full md:h-screen h-[89vh] overflow-hidden relative bg-black">
+    <section
+      id="home"
+      className="w-full md:h-screen h-[89vh] overflow-hidden relative bg-black"
+    >
       {/* Navigation Bar */}
       <div className="absolute top-0 left-0 w-full z-30">
         <Navbar />
@@ -37,6 +40,6 @@ export default function Hero() {
           <br /> Frontend Developer
         </h2>
       </div>
-    </div>
+    </section>
   );
 }

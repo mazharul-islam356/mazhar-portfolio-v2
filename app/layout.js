@@ -49,8 +49,27 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Mazharul Islam",
-  description: "Front-End Developer Portfolio",
+  title: "Mazharul Islam | Front-End Developer",
+  description:
+    "Portfolio of Mazharul Islam – Crafting modern, responsive, and user-friendly web interfaces using the latest front-end technologies.",
+  keywords:
+    "Mazharul Islam, Front-End Developer, Web Developer, React.js, JavaScript, Portfolio, UI/UX Design, Responsive Design, Next js",
+  author: "Mazharul Islam",
+  viewport: "width=device-width, initial-scale=1.0",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/meetup.png",
+    shortcut: "/meetup.png",
+    other: [
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        url: "/meetup.png",
+      },
+      { rel: "manifest", url: "/site.webmanifest" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {

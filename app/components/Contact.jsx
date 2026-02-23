@@ -201,7 +201,10 @@ const Contact = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-black px-4 lg:px-8 relative overflow-hidden">
+    <section
+      id="contact"
+      className="min-h-screen bg-black px-4 lg:px-8 relative overflow-hidden"
+    >
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-50 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl transform translate-x-1/2 z-0 -translate-y-1/2" />

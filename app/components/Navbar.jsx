@@ -42,22 +42,22 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/"
-              className="text-white/90 hover:text-white font-medium text-sm cursor-pointer transition-colors"
-            >
-              Blogs
-            </Link>
-            <Link
-              href="/"
-              className="text-white/90 hover:text-white font-medium text-sm cursor-pointer transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/"
+              href="#projects"
               className="text-white/90 hover:text-white font-medium text-sm cursor-pointer transition-colors"
             >
               Projects
+            </Link>
+            <Link
+              href="#experience"
+              className="text-white/90 hover:text-white font-medium text-sm cursor-pointer transition-colors"
+            >
+              Experience
+            </Link>
+            <Link
+              href="#contact"
+              className="text-white/90 hover:text-white font-medium text-sm cursor-pointer transition-colors"
+            >
+              Contact
             </Link>
           </div>
 
@@ -136,32 +136,32 @@ export default function Navbar() {
         {/* Sidebar Links */}
         <div className="flex flex-col pt-20 font-poppins z-10000">
           <Link
-            href="/"
+            href="#home"
             onClick={() => setIsMenuOpen(false)}
             className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
           >
             Home
           </Link>
           <Link
-            href="/"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
-          >
-            Blogs
-          </Link>
-          <Link
-            href="/"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/"
+            href="#projects"
             onClick={() => setIsMenuOpen(false)}
             className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
           >
             Projects
+          </Link>
+          <Link
+            href="#experience"
+            onClick={() => setIsMenuOpen(false)}
+            className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
+          >
+            Experience
+          </Link>
+          <Link
+            href="#contact"
+            onClick={() => setIsMenuOpen(false)}
+            className="text-white/90 hover:text-white hover:bg-white/10 font-medium text-base px-6 py-4 transition-colors"
+          >
+            Contact
           </Link>
         </div>
       </div>

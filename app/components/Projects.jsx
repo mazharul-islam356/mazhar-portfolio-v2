@@ -70,7 +70,10 @@ const teamMembers = [
 
 const Project = () => {
   return (
-    <section className="bg-transparent text-white md:pt-10 md:pb-5">
+    <section
+      id="projects"
+      className="bg-transparent text-white md:pt-10 md:pb-5"
+    >
       {/* <h1 className="text-white text-4xl">My Showcase</h1> */}
 
       {/* Background decorations */}
