@@ -2,13 +2,9 @@ import {
   Audiowide,
   Borel,
   Bruno_Ace,
-  Cinzel,
   Dongle,
-  Montserrat,
-  Montserrat_Alternates,
   Poppins,
   Rajdhani,
-  Science_Gothic,
 } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";

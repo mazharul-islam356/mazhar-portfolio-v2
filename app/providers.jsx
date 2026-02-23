@@ -1,8 +1,8 @@
 "use client";
 
-import { pageview } from "@/lib/gtags";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { pageview } from "./lib/gtags";
 
 export default function AnalyticsTracker() {
   const pathname = usePathname();
