@@ -69,6 +69,9 @@ export const metadata = {
       },
       { rel: "manifest", url: "/site.webmanifest" },
     ],
+    verification: {
+      google: "TFa6dXybhGQMAcrzkzWOLV2lYE0jmsoabFqVMMvGrUs",
+    },
   },
 };
 
@@ -76,6 +79,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Mazharul Islam",
+              image: "/myImage4.jpg",
+              jobTitle: "Frontend Web Developer",
+              url: "https://mazharulislam.site",
+              sameAs: [
+                "https://github.com/mazharul-islam356",
+                "https://web.facebook.com/rifat3569",
+                "https://www.linkedin.com/in/mazharul-islam-548a8b260/",
+              ],
+            }),
+          }}
+        />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=G-J1SS1Q5X8T`}
           strategy="afterInteractive"
