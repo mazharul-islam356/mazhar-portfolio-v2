@@ -58,8 +58,8 @@ export const metadata = {
   viewport: "width=device-width, initial-scale=1.0",
   icons: {
     icon: "/favicon.ico",
-    apple: "/meetup.png",
-    shortcut: "/meetup.png",
+    apple: "/favicon.ico",
+    shortcut: "/favicon.ico",
     other: [
       {
         rel: "icon",
