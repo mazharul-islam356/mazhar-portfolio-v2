@@ -12,12 +12,13 @@ const teamMembers = [
   },
   {
     id: "2",
-    name: "MKS Outfit",
+    name: "Quixalor",
     role: "Founder",
-    image: "/mks.webp",
+    image: "/quixalor-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
-    liveUrl: "https://mksoutfit.vercel.app",
+    liveUrl: "https://quixalor.shop",
   },
+
   {
     id: "3",
     name: "GadgetCheap",
@@ -65,6 +66,14 @@ const teamMembers = [
     image: "/commeriva-p.webp",
     bio: "Visionary leader with 10+ years of experience.",
     liveUrl: "https://commeriva.vercel.app",
+  },
+  {
+    id: "9",
+    name: "MKS Outfit",
+    role: "Founder",
+    image: "/mks.webp",
+    bio: "Visionary leader with 10+ years of experience.",
+    liveUrl: "https://mksoutfit.vercel.app",
   },
 ];
 

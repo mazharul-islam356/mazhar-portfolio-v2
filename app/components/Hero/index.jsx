@@ -1,6 +1,7 @@
 import Navbar from "../Navbar";
 import GlassButtonDemo from "./GlassButton";
 import Hero2 from "../HeroV2";
+import HeroV3 from "../HeroV3";
 
 export default function Hero() {
   return (
@@ -28,8 +29,8 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-125 md:h-125 w-60 h-60 md:bg-purple-600/20 bg-purple-500/40  rounded-full blur-[150px]" />
       </div>
 
-      <div className="absolute md:top-52 top-40 inset-0 z-10 overflow-hidden">
-        <Hero2 />
+      <div className="absolute md:top-48 top-52 inset-0 z-10 overflow-hidden">
+        <HeroV3 />
       </div>
 
       {/* Bottom Text */}
